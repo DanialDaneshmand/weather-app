@@ -9,7 +9,8 @@ const resources = {
       "Enter Your Name": "Enter Your Name",
       Language: "Language",
       English: "English",
-      "Persian ":"Persian "
+      "Persian ":"Persian ",
+      success:"login is success"
     },
   },
   fa: {
@@ -19,7 +20,8 @@ const resources = {
       "Enter Your Name": "نام خود را وارد کنید",
       Language: "زبان",
       English: "انگلیسی",
-      "Persian ":"فارسی"
+      "Persian ":"فارسی",
+      success:"ورود با موفقیت انجام شد"
     },
   },
 };

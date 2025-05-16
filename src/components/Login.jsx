@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { useLang } from "../context/LangContext";
+import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 function Login() {
   const { t, i18n } = useTranslation();
@@ -31,6 +33,7 @@ function Login() {
 export default Login;
 
 function Input({ schema }) {
+  const navigate=useNavigate()
   const {
     register,
     formState: { errors },
@@ -42,7 +45,9 @@ function Input({ schema }) {
   });
   const { loginUser, logoutUser, user } = useUser();
   const submitHandler = (data) => {
-    console.log(data);
+    loginUser(data)
+    toast.success(t("success"))
+    navigate("/dashboard")
   };
 
   return (
@@ -77,8 +82,6 @@ function ChangeLanguage() {
     { id: 2, language: t("Persian "), value: "fa" },
   ];
   const handleChange = (e) => {
-    console.log(e.target.value);
-
     setValue(e.target.value);
     setLanguage(e.target.value||"en");
   };
@@ -102,5 +105,7 @@ function ChangeLanguage() {
 }
 
 function ImageBox() {
-  return <div className=" bg-black">pic</div>;
+  return <div className=" ">
+    <img src="images/1.jpg" className=" w-full h-full" alt="" />
+  </div>;
 }

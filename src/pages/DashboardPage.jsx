@@ -1,9 +1,10 @@
 import React from 'react'
+import HeaderDashboard from '../components/HeaderDashboard'
 
 function DashboardPage() {
     return (
-        <div>
-            <p>this is dashboard</p>
+        <div className='bg-[#f5f9fc]'>
+            <HeaderDashboard/>
         </div>
     )
 }

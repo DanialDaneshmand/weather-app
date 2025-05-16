@@ -7,6 +7,7 @@ import DashboardPage from "./pages/DashboardPage";
 import UserProvider from "./context/UserContext";
 import LangProvider from "./context/LangContext";
 import Layout from "./components/Layout";
+import  { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <DarkModeProvier>
         <UserProvider>
           <LangProvider>
+            <Toaster/>
             <Layout>
               <Routes>
                 <Route path="/" element={<LoginPage />} />
