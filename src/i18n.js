@@ -10,7 +10,15 @@ const resources = {
       Language: "Language",
       English: "English",
       "Persian ":"Persian ",
-      success:"login is success"
+      success:"login is success",
+      "weather Dashboard":"weather Dashboard",
+      "search your location":"search your location",
+      Mode:"Mode",
+      Dark:"Dark",
+      Light:"Light",
+      En:"En",
+      Fa:"Fa",
+      Exit:"Exit"
     },
   },
   fa: {
@@ -21,7 +29,15 @@ const resources = {
       Language: "زبان",
       English: "انگلیسی",
       "Persian ":"فارسی",
-      success:"ورود با موفقیت انجام شد"
+      success:"ورود با موفقیت انجام شد",
+      "weather Dashboard":"داشبورد اب و هوا ",
+      "search your location":"مکان مورد نظر را جستجو کنید",
+      Mode:"حالت روز و شب",
+      Dark:"شب",
+      Light:"روز",
+      En:"انگلیسی",
+      Fa:"فارسی",
+      Exit:"خروج"
     },
   },
 };

@@ -1,6 +1,7 @@
 import { t } from "i18next";
 import React, { useState } from "react";
 import {
+  HiOutlineArrowRightStartOnRectangle,
   HiOutlineCog6Tooth,
   HiOutlineMoon,
   HiOutlineSun,
@@ -8,13 +9,21 @@ import {
 import { useDarkMode } from "../context/DarkModeContext";
 import Button from "../ui/Button";
 import { useLang } from "../context/LangContext";
+import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 function HeaderDashboard() {
   const { setLanguage, lang } = useLang();
+  const { loginUser, logoutUser, user } = useUser();
+  const navigate = useNavigate();
+
+  if (!user) {
+    navigate("/");
+  }
   return (
-    <div className=" w-full  shadow-lg  flex justify-between items-center py-4  px-6">
+    <div className=" w-full  shadow-lg flex  flex-col md:flex-row gap-y-8 md:gap-y-0 justify-between items-center py-4  px-6">
       <div>
-        <p className=" text-gray-400">Header Dashboard</p>
+        <p className=" text-gray-400">{t("weather Dashboard")}</p>
       </div>
       <div className=" flex items-center gap-x-6">
         <ChoseLocation />
@@ -28,6 +37,8 @@ export default HeaderDashboard;
 
 function ChoseLocation() {
   const [value, setValue] = useState("en");
+  const { setLanguage, lang } = useLang();
+
   const options = [
     { id: 1, language: t("English"), value: "en" },
     { id: 2, language: t("Persian "), value: "fa" },
@@ -38,8 +49,12 @@ function ChoseLocation() {
   return (
     <div className=" flex justify-center items-center  w-full">
       <div className=" flex flex-col gap-y-1 relative">
-        <label className=" absolute -top-3 left-2 block p-1 bg-[#f1f9fc] text-xs text-gray-500">
-          search your location
+        <label
+          className={`absolute -top-3 ${
+            lang === "fa" ? "right-2" : "left-2"
+          } block p-1 bg-[#f1f9fc] text-xs text-gray-500`}
+        >
+          {t("search your location")}
         </label>
         <select
           className=" text-gray-800 outline-none border border-gray-300 rounded-lg py-2 w-64 text-sm"
@@ -57,9 +72,12 @@ function ChoseLocation() {
 }
 
 function Setting() {
-  const [isShow, setIsShow] = useState(true);
+  const [isShow, setIsShow] = useState(false);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { setLanguage, lang } = useLang();
+  const { loginUser, logoutUser, user } = useUser();
+    const navigate=useNavigate()
+
   const handleDarkMode = (theme) => {
     if (theme === "light" && isDarkMode) {
       toggleDarkMode();
@@ -70,6 +88,10 @@ function Setting() {
   };
   const handleLang = (lng) => {
     setLanguage(lng);
+  };
+  const handleExit = () => {
+    logoutUser();
+    navigate("/")
   };
   return (
     <div className=" relative">
@@ -88,58 +110,118 @@ function Setting() {
         </div>
       </button>
       {isShow && (
-        <div className=" p-4 space-y-4 absolute top-12 bg-white rounded-lg right-0 border border-gray-300 shadow-lg">
+        <div
+          className={`p-4 space-y-4 absolute top-12 bg-white rounded-lg ${
+            lang === "fa" ? "left-0" : "right-0"
+          } border border-gray-300 shadow-lg`}
+        >
           {/* dark mode box */}
           <div className=" space-y-2 border-b-2 border-gray-200 pb-3">
-            <p>Mode</p>
-            <div className=" flex">
-              <Button
-                onclick={() => handleDarkMode("light")}
-                isActive={!isDarkMode}
-                classes={`rounded-l-lg ${isDarkMode && "border-r-0"}`}
-              >
-                <span>
-                  <HiOutlineSun />
-                </span>
-                <span>Light</span>
-              </Button>
-              <Button
-                onclick={() => handleDarkMode("dark")}
-                isActive={isDarkMode}
-                classes={`rounded-r-lg ${!isDarkMode && "border-l-0"}`}
-              >
-                <span>
-                  <HiOutlineMoon />
-                </span>
-                <span>Dark</span>
-              </Button>
-            </div>
+            <p>{t("Mode")}</p>
+            {lang === "en" ? (
+              <div className=" flex">
+                <Button
+                  onclick={() => handleDarkMode("light")}
+                  isActive={!isDarkMode}
+                  classes={`rounded-l-lg ${isDarkMode && "border-r-0"}`}
+                >
+                  <span>
+                    <HiOutlineSun />
+                  </span>
+                  <span>{t("Light")}</span>
+                </Button>
+                <Button
+                  onclick={() => handleDarkMode("dark")}
+                  isActive={isDarkMode}
+                  classes={`rounded-r-lg ${!isDarkMode && "border-l-0"}`}
+                >
+                  <span>
+                    <HiOutlineMoon />
+                  </span>
+                  <span>{t("Dark")}</span>
+                </Button>
+              </div>
+            ) : (
+              <div className=" flex">
+                <Button
+                  onclick={() => handleDarkMode("dark")}
+                  isActive={isDarkMode}
+                  classes={`rounded-r-lg ${!isDarkMode && "border-l-0"}`}
+                >
+                  <span>
+                    <HiOutlineMoon />
+                  </span>
+                  <span>{t("Dark")}</span>
+                </Button>
+                <Button
+                  onclick={() => handleDarkMode("light")}
+                  isActive={!isDarkMode}
+                  classes={`rounded-l-lg ${isDarkMode && "border-r-0"}`}
+                >
+                  <span>
+                    <HiOutlineSun />
+                  </span>
+                  <span>{t("Light")}</span>
+                </Button>
+              </div>
+            )}
           </div>
           {/* language box */}
           <div className=" space-y-2 w-full border-b-2 border-gray-200 pb-3">
-            <p>Language</p>
-            <div className=" flex">
-              <Button
-                onclick={() => handleLang("en")}
-                isActive={lang === "en"}
-                classes={`rounded-l-lg w-full flex justify-center ${
-                  isDarkMode && "border-r-0"
-                }`}
-              >
-                En
-              </Button>
-              <Button
-                onclick={() => handleLang("fa")}
-                isActive={lang === "fa"}
-                classes={`rounded-r-lg w-full flex justify-center ${
-                  !isDarkMode && "border-l-0"
-                }`}
-              >
-                Fa
-              </Button>
-            </div>
+            <p>{t("Language")}</p>
+            {lang === "en" ? (
+              <div className=" flex">
+                <Button
+                  onclick={() => handleLang("en")}
+                  isActive={lang === "en"}
+                  classes={`rounded-l-lg w-full flex justify-center  ${
+                    lang === "en" && "border-r border-blue-400"
+                  }`}
+                >
+                  {t("En")}
+                </Button>
+                <Button
+                  onclick={() => handleLang("fa")}
+                  isActive={lang === "fa"}
+                  classes={`rounded-r-lg w-full flex justify-center ${
+                    lang === "en" && "border-l-0"
+                  }`}
+                >
+                  {t("Fa")}
+                </Button>
+              </div>
+            ) : (
+              <div className=" flex">
+                <Button
+                  onclick={() => handleLang("fa")}
+                  isActive={lang === "fa"}
+                  classes={`rounded-r-lg w-full flex justify-center ${
+                    !isDarkMode && "border-l-0"
+                  }`}
+                >
+                  {t("Fa")}
+                </Button>
+                <Button
+                  onclick={() => handleLang("en")}
+                  isActive={lang === "en"}
+                  classes={`rounded-l-lg w-full flex justify-center ${
+                    isDarkMode && "border-r-0"
+                  } `}
+                >
+                  {t("En")}
+                </Button>
+              </div>
+            )}
           </div>
-          <button>exit</button>
+          <button
+            onClick={handleExit}
+            className=" flex items-center gap-x-2 text-red-600"
+          >
+            <span className=" text-2xl">
+              <HiOutlineArrowRightStartOnRectangle />
+            </span>
+            <span>{t("Exit")}</span>
+          </button>
         </div>
       )}
     </div>
