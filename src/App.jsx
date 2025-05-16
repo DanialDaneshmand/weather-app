@@ -5,21 +5,21 @@ import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import UserProvider from "./context/UserContext";
-import Test from "./components/Test";
-import i18n from "./i18n";
 import LangProvider from "./context/LangContext";
+import Layout from "./components/Layout";
 
 function App() {
-  
   return (
     <div>
       <DarkModeProvier>
         <UserProvider>
           <LangProvider>
-            <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-          </Routes>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+              </Routes>
+            </Layout>
           </LangProvider>
         </UserProvider>
       </DarkModeProvier>

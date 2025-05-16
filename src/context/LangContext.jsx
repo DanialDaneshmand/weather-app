@@ -1,14 +1,20 @@
 import { createContext, useContext, useState } from "react";
+import i18n from "../i18n";
 
 const LangContext = createContext();
 
 function LangProvider({ children }) {
   const [lang, setLang] = useState("en");
   const setLanguage = (lang) => {
+    i18n.changeLanguage(lang);
     setLang(lang);
   };
-  
-  return <LangContext.Provider value={{setLanguage,lang}}>{children}</LangContext.Provider>;
+
+  return (
+    <LangContext.Provider value={{ setLanguage, lang }}>
+      {children}
+    </LangContext.Provider>
+  );
 }
 
 export default LangProvider;

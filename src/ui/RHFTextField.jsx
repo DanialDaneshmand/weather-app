@@ -1,3 +1,4 @@
+
 function TextFeild({
   errors,
   label = "",
@@ -9,24 +10,18 @@ function TextFeild({
   placeholder
 }) {
   return (
-    <div className=" my-10">
-      <label
-        htmlFor={name}
-        className="mb-4 text-slate-600 dark:text-slate-300 block"
-      >
-        {label}
-        {required && <span className="text-red-600">*</span>}
-      </label>
+    <div className=" w-full my-10">
+      
       <input
         placeholder={placeholder}
         {...register(name, validationSchema)}
         type={type}
         id={name}
-        className={` bg-slate-200 shadow-blue-300 border-slate-500 dark:text-slate-300  rounded-lg w-full dark:bg-slate-500 outline-none text-slate-800 border hover:border-blue-300 p-3 focus:border-blue-300 hover:shadow-blue-300 hover:shadow-sm focus:shadow-blue-300 focus:shadow-sm`}
+        className="w-full outline-none border border-gray-400 rounded-lg p-2 text-xs"
         // autoComplete="off"
       />
       {errors && errors[name] && (
-        <span className="text-sm block text-red-600 mt-4">
+        <span className="text-xs block text-red-600 mt-2">
           {errors[name]?.message}
         </span>
       )}
