@@ -11,6 +11,7 @@ import Button from "../ui/Button";
 import { useLang } from "../context/LangContext";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "../context/locationContext";
 
 function HeaderDashboard() {
   const { setLanguage, lang } = useLang();
@@ -36,13 +37,9 @@ function HeaderDashboard() {
 export default HeaderDashboard;
 
 function ChoseLocation() {
-  const [value, setValue] = useState("en");
-  const { setLanguage, lang } = useLang();
+  const { setLocation, location }=useLocation()
 
-  const options = [
-    { id: 1, language: t("English"), value: "en" },
-    { id: 2, language: t("Persian "), value: "fa" },
-  ];
+  
   const handleChange = (e) => {
     setValue(e.target.value);
   };
@@ -56,16 +53,7 @@ function ChoseLocation() {
         >
           {t("search your location")}
         </label>
-        <select
-          className=" text-gray-800 outline-none border border-gray-300 rounded-lg py-2 w-64 text-sm"
-          onChange={handleChange}
-        >
-          {options.map((item) => (
-            <option key={item.id} value={item.value}>
-              {item.language}
-            </option>
-          ))}
-        </select>
+          <input type="text" value={location}/>
       </div>
     </div>
   );

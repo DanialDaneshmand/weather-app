@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { HiMapPin } from "react-icons/hi2";
 import { t } from "i18next";
+import toast from "react-hot-toast";
 
 const WeatherForecast = () => {
   const [forecast, setForecast] = useState([]);
@@ -9,9 +10,9 @@ const WeatherForecast = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const apiKey = "PUNN7W7KPNSHDUYN24EG3B372"; // کلید API خودت رو جایگزین کن
-  const location = "tehran"; // یا هر شهر دلخواه
-  const daysCount = 14; // چند روز آینده
+  const apiKey = "PUNN7W7KPNSHDUYN24EG3B372"; 
+  const location = "اصفهان"; 
+  const daysCount = 14; 
 
   const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&key=${apiKey}&contentType=json`;
 
@@ -19,7 +20,7 @@ const WeatherForecast = () => {
     axios
       .get(url)
       .then((response) => {
-        const days = response.data.days.slice(0, daysCount); // فقط X روز آینده
+        const days = response.data.days.slice(0, daysCount); 
         setForecast(days);
         setTodayInfo(days[0])
         console.log(days);
@@ -34,12 +35,12 @@ const WeatherForecast = () => {
   }, []);
 
   if (loading) return <p>در حال بارگذاری اطلاعات...</p>;
-  if (error) return <p>{error}</p>;
+  if (error) return toast.error(error);
 
   return (
     <div className=" p-10">
       <div className=" grid grid-cols-12">
-        <DailyInfo todayInfo={todayInfo}/>
+        <DailyInfo todayInfo={todayInfo} location={location}/>
         <AverageMonthyTemprature />
       </div>
       <div className="px-5">
@@ -51,18 +52,9 @@ const WeatherForecast = () => {
 
 export default WeatherForecast;
 
-{
-  /* <ul>
-  {forecast.map((day, index) => (
-    <li key={index}>
-      <strong>{day.datetime}</strong> - دما: {day.temp}°C - وضعیت:{" "}
-      {day.conditions}
-    </li>
-  ))}
-</ul>; */
-}
 
-function DailyInfo({todayInfo}) {
+
+function DailyInfo({todayInfo,location}) {
   return (
     <div className="col-span-5 p-5 text-gray-600">
       <div className=" w-full  bg-[#e1e9ee] p-5 rounded-2xl flex justify-between ">
@@ -71,7 +63,7 @@ function DailyInfo({todayInfo}) {
             <span className=" text-lg">
               <HiMapPin />
             </span>
-            <span className=" text-sm">Tehran</span>
+            <span className=" text-sm">{location}</span>
           </div>
           <div>
             <p className=" text-2xl font-bold">Monday</p>
@@ -90,7 +82,7 @@ function DailyInfo({todayInfo}) {
         </div>
         <div>
           <img
-            src="https://raw.githubusercontent.com/VisualCrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/clear-day.png"
+            src={`https://raw.githubusercontent.com/VisualCrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/${todayInfo.icon}.png`}
             alt=""
             className=" mb-4"
           />
@@ -111,7 +103,6 @@ function AverageMonthyTemprature() {
 }
 
 function TwoWeeksForecast({ forecast }) {
-  console.log(forecast);
 
   return (
     <div className=" w-full text-gray-600 bg-[#e1e9ee] rounded-2xl p-5">
