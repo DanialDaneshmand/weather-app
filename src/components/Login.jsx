@@ -64,7 +64,6 @@ function Input({ schema }) {
           />
         </div>
         <button
-          onClick={() => loginUser(value)}
           className=" w-full rounded-lg py-2 bg-[#009cdb] text-white text-sm"
         >
           {t("login")}

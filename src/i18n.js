@@ -18,7 +18,8 @@ const resources = {
       Light:"Light",
       En:"En",
       Fa:"Fa",
-      Exit:"Exit"
+      Exit:"Exit",
+      "Feels Likes":"Feels Likes"
     },
   },
   fa: {
@@ -37,7 +38,8 @@ const resources = {
       Light:"روز",
       En:"انگلیسی",
       Fa:"فارسی",
-      Exit:"خروج"
+      Exit:"خروج",
+      "Feels Likes":"درجه احساس می شود"
     },
   },
 };
