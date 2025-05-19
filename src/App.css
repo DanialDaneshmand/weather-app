@@ -1,2 +1,17 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+@font-face {
+  font-family: 'Vazir';
+  src: url('../src/assets/fonts/Vazirmatn-Regular.woff2') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Vazir', sans-serif;
+}
+
+*{
+    box-sizing: border-box;
+}
+
