@@ -23,7 +23,8 @@ const resources = {
       "Weeks Forecast": "2 Weeks Forecast",
       "Average Monthly Temprature": "Average Monthly Temprature",
       "High":"High",
-      Low:"Low"
+      Low:"Low",
+      Clear:"Clear"
     },
   },
   fa: {
@@ -47,7 +48,8 @@ const resources = {
       "Weeks Forecast": "پیش بینی دو هفته",
       "Average Monthly Temprature": "میانگین دمای ماهانه",
       High:"بیشینه",
-      Low:"کمینه"
+      Low:"کمینه",
+      Clear:"صاف"
     },
   },
 };
