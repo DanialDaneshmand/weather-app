@@ -10,6 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import { useLang } from "../context/LangContext";
+import { t } from "i18next";
 
 ChartJS.register(
   LineElement,
@@ -112,7 +113,7 @@ function AverageMonthyTemprature() {
     <div className=" col-span-12 lg:col-span-7 py-5  sm:p-5">
       <div className=" w-full dark:bg-[#3d4852]  bg-[#e1e9ee] py-2 px-5 rounded-2xl">
         <p className=" text-lg mb-4 font-bold text-gray-600 dark:text-gray-300">
-          Average Monthly Temprature
+          {t("Average Monthly Temprature")}
         </p>
         <Line className="w-full text-white" data={data} options={options} />
       </div>

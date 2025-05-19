@@ -5,9 +5,9 @@ const LangContext = createContext();
 
 function LangProvider({ children }) {
   const [lang, setLang] = useState("en");
-  const setLanguage = (lang) => {
-    i18n.changeLanguage(lang);
-    setLang(lang);
+  const setLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setLang(lng);
   };
 
   

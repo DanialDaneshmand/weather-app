@@ -13,15 +13,12 @@ import { useLang } from "../context/LangContext";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "../context/locationContext";
+import useOutsideClick from "../pages/useOutsideClick";
 
 function HeaderDashboard() {
   const { setLanguage, lang } = useLang();
   const { loginUser, logoutUser, user } = useUser();
-  const navigate = useNavigate();
 
-  if (!user) {
-    navigate("/");
-  }
   return (
     <div className=" w-full  shadow-lg flex  flex-col md:flex-row gap-y-8 md:gap-y-0 justify-between items-center py-4  px-6">
       <div>
@@ -40,8 +37,7 @@ export default HeaderDashboard;
 function ChoseLocation() {
   const { handleSetLocation, location } = useLocation();
   const { setLanguage, lang } = useLang();
-  console.log(lang);
-  
+
   const [value, setValue] = useState("");
   useEffect(() => {
     setValue(location);
@@ -69,7 +65,11 @@ function ChoseLocation() {
           value={value}
           onChange={handleChange}
         />
-        <button className={`${lang==="fa"?"left-2 ":"right-2"} cursor-pointer absolute top-2 text-gray-400  text-xl  z-5`}>
+        <button
+          className={`${
+            lang === "fa" ? "left-2 " : "right-2"
+          } cursor-pointer absolute top-2 text-gray-400  text-xl  z-5`}
+        >
           <HiOutlineMagnifyingGlass />
         </button>
       </form>
@@ -83,6 +83,7 @@ function Setting() {
   const { setLanguage, lang } = useLang();
   const { loginUser, logoutUser, user } = useUser();
   const navigate = useNavigate();
+  const ref=useOutsideClick(()=>setIsShow(false))
 
   const handleDarkMode = (theme) => {
     if (theme === "light" && isDarkMode) {
@@ -93,6 +94,7 @@ function Setting() {
     }
   };
   const handleLang = (lng) => {
+    console.log(lng);
     setLanguage(lng);
   };
   const handleExit = () => {
@@ -117,6 +119,7 @@ function Setting() {
       </button>
       {isShow && (
         <div
+        ref={ref}
           className={`p-4 space-y-4 absolute top-12 bg-white dark:bg-[#62707c] rounded-lg ${
             lang === "fa" ? "left-0" : "right-0"
           } border border-gray-300 dark:border-gray-400 shadow-lg`}
@@ -173,51 +176,28 @@ function Setting() {
             )}
           </div>
           {/* language box */}
-          <div className=" space-y-2 w-full border-b-2 dark:border-gray-400 border-gray-200 pb-3">
+          <div className=" space-y-2 w-full border-b-2 dark:border-gray-400 border-gray-200 pb-3 ">
             <p className=" dark:text-gray-300">{t("Language")}</p>
-            {lang === "en" ? (
-              <div className=" flex">
-                <Button
-                  onclick={() => handleLang("en")}
-                  isActive={lang === "en"}
-                  classes={`rounded-l-lg w-full flex justify-center  ${
-                    lang === "en" && "border-r border-blue-400"
-                  }`}
-                >
-                  {t("En")}
-                </Button>
-                <Button
-                  onclick={() => handleLang("fa")}
-                  isActive={lang === "fa"}
-                  classes={`rounded-r-lg w-full flex justify-center ${
-                    lang === "en" && "border-l-0"
-                  }`}
-                >
-                  {t("Fa")}
-                </Button>
-              </div>
-            ) : (
-              <div className=" flex">
-                <Button
-                  onclick={() => handleLang("fa")}
-                  isActive={lang === "fa"}
-                  classes={`rounded-r-lg w-full flex justify-center ${
-                    !isDarkMode && "border-l-0"
-                  }`}
-                >
-                  {t("Fa")}
-                </Button>
-                <Button
-                  onclick={() => handleLang("en")}
-                  isActive={lang === "en"}
-                  classes={`rounded-l-lg w-full flex justify-center ${
-                    isDarkMode && "border-r-0"
-                  } `}
-                >
-                  {t("En")}
-                </Button>
-              </div>
-            )}
+            <div dir="ltr" className=" flex">
+              <Button
+                onclick={() => handleLang("en")}
+                isActive={lang === "en"}
+                classes={`rounded-l-lg w-full flex justify-center  ${
+                  lang === "en" ? "border-r border-blue-400":"border-r-0"
+                }`}
+              >
+                {t("En")}
+              </Button>
+              <Button
+                onclick={() => handleLang("fa")}
+                isActive={lang === "fa"}
+                classes={`rounded-r-lg w-full flex justify-center ${
+                  lang === "en" && "border-l-0"
+                }`}
+              >
+                {t("Fa")}
+              </Button>
+            </div>
           </div>
           <button
             onClick={handleExit}
@@ -233,3 +213,53 @@ function Setting() {
     </div>
   );
 }
+
+{
+  /* language box */
+}
+{/* <div className=" space-y-2 w-full border-b-2 dark:border-gray-400 border-gray-200 pb-3">
+  <p className=" dark:text-gray-300">{t("Language")}</p>
+  {lang === "en" ? (
+    <div className=" flex">
+      <Button
+        onclick={() => handleLang("en")}
+        isActive={lang === "en"}
+        classes={`rounded-l-lg w-full flex justify-center  ${
+          lang === "en" && "border-r border-blue-400"
+        }`}
+      >
+        {t("En")}
+      </Button>
+      <Button
+        onclick={() => handleLang("fa")}
+        isActive={lang === "fa"}
+        classes={`rounded-r-lg w-full flex justify-center ${
+          lang === "en" && "border-l-0"
+        }`}
+      >
+        {t("Fa")}
+      </Button>
+    </div>
+  ) : (
+    <div className=" flex">
+      <Button
+        onclick={() => handleLang("fa")}
+        isActive={lang === "fa"}
+        classes={`rounded-r-lg w-full flex justify-center ${
+          !isDarkMode && "border-l-0"
+        }`}
+      >
+        {t("Fa")}
+      </Button>
+      <Button
+        onclick={() => handleLang("en")}
+        isActive={lang === "en"}
+        classes={`rounded-l-lg w-full flex justify-center ${
+          isDarkMode && "border-r-0"
+        } `}
+      >
+        {t("En")}
+      </Button>
+    </div>
+  )}
+</div>; */}
