@@ -18,8 +18,8 @@ function Login() {
     })
     .required();
   return (
-    <div className=" w-full flex-col h-screen bg-[#f5f9fc] flex justify-center items-center">
-      <div className="  w-7/12 bg-[#fff] rounded-xl overflow-hidden shadow-lg">
+    <div className=" w-full flex-col h-screen bg-[#f5f9fc] dark:bg-[#1c1b22] flex justify-center items-center">
+      <div className="  w-7/12 bg-[#fff] dark:bg-[#25262e] rounded-xl overflow-hidden shadow-lg">
         <div className=" grid grid-cols-2">
           <Input schema={schema} />
           <ImageBox />
@@ -41,7 +41,7 @@ function Input({ schema }) {
     reset,
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onTouched",
+    mode: "onSubmit",
   });
   const { loginUser, logoutUser, user } = useUser();
   const submitHandler = (data) => {
@@ -52,9 +52,9 @@ function Input({ schema }) {
 
   return (
     <div className="  flex p-10 space-y-32 flex-col justify-center items-center">
-      <form className="w-full" onSubmit={handleSubmit(submitHandler)}>
+      <form className="w-full dark:text-gray-300" onSubmit={handleSubmit(submitHandler)}>
         <div className=" flex  w-full  flex-col items-center gap-y-6">
-          <p className=" text-xl font-bold">{t("login")}</p>
+          <p className=" text-xl dark:text-gray-300 font-bold">{t("login")}</p>
           <RHFTextField
             name="name"
             register={register}
@@ -83,13 +83,14 @@ function ChangeLanguage() {
   const handleChange = (e) => {
     setValue(e.target.value);
     setLanguage(e.target.value||"en");
+    
   };
   return (
     <div className=" flex justify-center items-center py-8 w-full">
       <div className=" flex flex-col gap-y-1">
         <p className=" text-gray-500 text-xs">{t("Language")}</p>
         <select
-          className=" outline-none shadow-md py-2 w-48 text-sm"
+          className=" dark:text-gray-400 outline-none shadow-md py-2 w-48 text-sm"
           onChange={handleChange}
         >
           {options.map((item) => (

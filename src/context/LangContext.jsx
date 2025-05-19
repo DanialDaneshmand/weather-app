@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import i18n from "../i18n";
 
 const LangContext = createContext();
@@ -9,6 +9,8 @@ function LangProvider({ children }) {
     i18n.changeLanguage(lang);
     setLang(lang);
   };
+
+  
 
   return (
     <LangContext.Provider value={{ setLanguage, lang }}>

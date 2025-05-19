@@ -4,12 +4,12 @@ const LocationContext = createContext();
 
 function LocationProvider({ children }) {
   const [location, setLocation] = useState("Tehran");
-  const setLanguage = (loc) => {
+  const handleSetLocation = (loc) => {
     setLocation(loc)
   };
 
   return (
-    <LocationContext.Provider value={{ setLocation, location }}>
+    <LocationContext.Provider value={{ handleSetLocation, location }}>
       {children}
     </LocationContext.Provider>
   );

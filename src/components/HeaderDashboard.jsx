@@ -1,8 +1,9 @@
 import { t } from "i18next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   HiOutlineArrowRightStartOnRectangle,
   HiOutlineCog6Tooth,
+  HiOutlineMagnifyingGlass,
   HiOutlineMoon,
   HiOutlineSun,
 } from "react-icons/hi2";
@@ -37,24 +38,41 @@ function HeaderDashboard() {
 export default HeaderDashboard;
 
 function ChoseLocation() {
-  const { setLocation, location }=useLocation()
-
+  const { handleSetLocation, location } = useLocation();
+  const { setLanguage, lang } = useLang();
+  console.log(lang);
   
+  const [value, setValue] = useState("");
+  useEffect(() => {
+    setValue(location);
+  }, []);
   const handleChange = (e) => {
     setValue(e.target.value);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSetLocation(value);
+  };
   return (
     <div className=" flex justify-center items-center  w-full">
-      <div className=" flex flex-col gap-y-1 relative">
+      <form className=" flex flex-col gap-y-1 relative" onSubmit={handleSubmit}>
         <label
           className={`absolute -top-3 ${
             lang === "fa" ? "right-2" : "left-2"
-          } block p-1 bg-[#f1f9fc] text-xs text-gray-500`}
+          } block p-1 bg-[#f1f9fc] dark:bg-[#1c1b22] text-xs text-gray-500`}
         >
           {t("search your location")}
         </label>
-          <input type="text" value={location}/>
-      </div>
+        <input
+          className=" p-2 outline-none text-gray-400 border-gray-300 border text-sm rounded-md w-64"
+          type="text"
+          value={value}
+          onChange={handleChange}
+        />
+        <button className={`${lang==="fa"?"left-2 ":"right-2"} cursor-pointer absolute top-2 text-gray-400  text-xl  z-5`}>
+          <HiOutlineMagnifyingGlass />
+        </button>
+      </form>
     </div>
   );
 }
@@ -64,7 +82,7 @@ function Setting() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { setLanguage, lang } = useLang();
   const { loginUser, logoutUser, user } = useUser();
-    const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handleDarkMode = (theme) => {
     if (theme === "light" && isDarkMode) {
@@ -79,7 +97,7 @@ function Setting() {
   };
   const handleExit = () => {
     logoutUser();
-    navigate("/")
+    navigate("/");
   };
   return (
     <div className=" relative">
@@ -90,7 +108,7 @@ function Setting() {
         <div
           className={`${
             isShow
-              ? "border-[#57c0e9]  bg-[#cfedfa]  text-[#57c0e9]"
+              ? "border-[#57c0e9]  bg-[#cfedfa] dark:bg-[#62707c]  text-[#57c0e9]"
               : "text-gray-300"
           } border  p-2 rounded-md text-xl `}
         >
@@ -99,13 +117,13 @@ function Setting() {
       </button>
       {isShow && (
         <div
-          className={`p-4 space-y-4 absolute top-12 bg-white rounded-lg ${
+          className={`p-4 space-y-4 absolute top-12 bg-white dark:bg-[#62707c] rounded-lg ${
             lang === "fa" ? "left-0" : "right-0"
-          } border border-gray-300 shadow-lg`}
+          } border border-gray-300 dark:border-gray-400 shadow-lg`}
         >
           {/* dark mode box */}
-          <div className=" space-y-2 border-b-2 border-gray-200 pb-3">
-            <p>{t("Mode")}</p>
+          <div className=" space-y-2 border-b-2 dark:border-gray-400 border-gray-200 pb-3">
+            <p className=" dark:text-gray-300">{t("Mode")}</p>
             {lang === "en" ? (
               <div className=" flex">
                 <Button
@@ -155,8 +173,8 @@ function Setting() {
             )}
           </div>
           {/* language box */}
-          <div className=" space-y-2 w-full border-b-2 border-gray-200 pb-3">
-            <p>{t("Language")}</p>
+          <div className=" space-y-2 w-full border-b-2 dark:border-gray-400 border-gray-200 pb-3">
+            <p className=" dark:text-gray-300">{t("Language")}</p>
             {lang === "en" ? (
               <div className=" flex">
                 <Button
