@@ -22,7 +22,18 @@ function HeaderDashboard() {
   return (
     <div className=" w-full  shadow-lg flex  flex-col md:flex-row gap-y-8 md:gap-y-0 justify-between items-center py-4  px-6">
       <div>
-        <p className=" text-gray-400">{t("weather Dashboard")}</p>
+        
+          <p className=" flex gap-x-2 items-center text-gray-400">
+            <span>
+              <img
+                src="/images/5.jpg"
+                className="w-14 h-14 rounded-full"
+                alt=""
+              />
+            </span>
+            <span>{t("weather Dashboard")}</span>
+          </p>
+        
       </div>
       <div className=" flex items-center gap-x-6">
         <ChoseLocation />
@@ -83,7 +94,7 @@ function Setting() {
   const { setLanguage, lang } = useLang();
   const { loginUser, logoutUser, user } = useUser();
   const navigate = useNavigate();
-  const ref=useOutsideClick(()=>setIsShow(false))
+  const ref = useOutsideClick(() => setIsShow(false));
 
   const handleDarkMode = (theme) => {
     if (theme === "light" && isDarkMode) {
@@ -119,7 +130,7 @@ function Setting() {
       </button>
       {isShow && (
         <div
-        ref={ref}
+          ref={ref}
           className={`p-4 space-y-4 absolute top-12 bg-white dark:bg-[#62707c] rounded-lg ${
             lang === "fa" ? "left-0" : "right-0"
           } border border-gray-300 dark:border-gray-400 shadow-lg`}
@@ -183,7 +194,7 @@ function Setting() {
                 onclick={() => handleLang("en")}
                 isActive={lang === "en"}
                 classes={`rounded-l-lg w-full flex justify-center  ${
-                  lang === "en" ? "border-r border-blue-400":"border-r-0"
+                  lang === "en" ? "border-r border-blue-400" : "border-r-0"
                 }`}
               >
                 {t("En")}
@@ -217,7 +228,8 @@ function Setting() {
 {
   /* language box */
 }
-{/* <div className=" space-y-2 w-full border-b-2 dark:border-gray-400 border-gray-200 pb-3">
+{
+  /* <div className=" space-y-2 w-full border-b-2 dark:border-gray-400 border-gray-200 pb-3">
   <p className=" dark:text-gray-300">{t("Language")}</p>
   {lang === "en" ? (
     <div className=" flex">
@@ -262,4 +274,5 @@ function Setting() {
       </Button>
     </div>
   )}
-</div>; */}
+</div>; */
+}

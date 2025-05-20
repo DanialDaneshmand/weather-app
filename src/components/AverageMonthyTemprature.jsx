@@ -26,28 +26,9 @@ const options = {
   plugins: {
     legend: {
       position: "top",
-      display:false,
-      maxHeight:"100px"
+      display: false,
+      maxHeight: "100px",
     },
-    scales: {
-      x: {
-        ticks: {
-          color: "#fff",
-          font: {
-            size: 12,
-          },
-        },
-      },
-      y: {
-        ticks: {
-          color: "#555",
-          font: {
-            size: 12,
-          },
-        },
-      },
-    },
-
     tooltip: {
       enabled: true,
     },
@@ -102,7 +83,7 @@ function AverageMonthyTemprature() {
             {
               label: "Temprature",
               data: [10, 30, 40, 20, 30, 20, 20, 30, 20, 30, 20, 30],
-              
+
               fill: false,
               borderColor: "rgb(75, 192, 192)",
               tension: 0.3,

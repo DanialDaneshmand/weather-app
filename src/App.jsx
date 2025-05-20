@@ -8,6 +8,7 @@ import LangProvider from "./context/LangContext";
 import Layout from "./components/Layout";
 import { Toaster } from "react-hot-toast";
 import LocationProvider from "./context/locationContext";
+import Test from "./components/Test";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                   <Route path="/dashboard" element={<DashboardPage />} />
                 </Routes>
               </Layout>
+              {/* <Test /> */}
             </LocationProvider>
           </LangProvider>
         </UserProvider>

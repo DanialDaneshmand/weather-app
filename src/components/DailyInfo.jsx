@@ -133,20 +133,20 @@ function DailyInfo({ todayInfo, location }) {
             </div>
           </div>
         </div>
-        <div>
+        <div className=" px-4 sm:px-0">
           <img
             src={`https://raw.githubusercontent.com/VisualCrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/${todayInfo.icon}.png`}
             alt=""
-            className=" mb-4"
+            className=" mb-4 w-16 sm:w-auto sm:h-auto h-16"
           />
           <p className="text-xl font-bold">{todayInfo.conditions}</p>
           {lang === "en" ? (
-            <p className=" text-xs flex items-center">
+            <p className="  text-xs flex items-center">
               <span>{t("Feels Likes")}</span>{" "}
               <span>{t(todayInfo.feelslike)}</span>
             </p>
           ) : (
-            <p className=" text-xs flex items-center">
+            <p className=" gap-x-2 text-xs flex ">
               <span>{todayInfo.feelslike}</span>
               <span>{t("Feels Likes")}</span>
             </p>

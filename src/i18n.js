@@ -24,7 +24,9 @@ const resources = {
       "Average Monthly Temprature": "Average Monthly Temprature",
       "High":"High",
       Low:"Low",
-      Clear:"Clear"
+      Clear:"Clear",
+      "Receive Data":"data is loading ...",
+      "Receive Error":"error in data receiving ..."
     },
   },
   fa: {
@@ -49,7 +51,9 @@ const resources = {
       "Average Monthly Temprature": "میانگین دمای ماهانه",
       High:"بیشینه",
       Low:"کمینه",
-      Clear:"صاف"
+      Clear:"صاف",
+    "Receive Data":"در حال بارگذاری اطلاعات...",
+    "Receive Error":"خطا در دریافت اطلاعات"
     },
   },
 };
