@@ -115,7 +115,7 @@ function Setting() {
   return (
     <div className=" relative">
       <button
-        className=" cursor-pointer p-1"
+        className=" cursor-pointer p-2"
         onClick={() => setIsShow(!isShow)}
       >
         <div
